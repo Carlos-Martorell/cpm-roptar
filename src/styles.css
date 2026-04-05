@@ -1,3 +1,42 @@
-/* You can add global styles to this file, and also import other style files */
-
 @import "tailwindcss";
+
+@theme {
+  --color-rotpar-900: #1a2340;
+  --color-rotpar-800: #1e2d5a;
+  --color-rotpar-700: #243572;
+  --color-rotpar-600: #2b3d8a;
+  --color-rotpar-500: #3347a0;
+  --color-rotpar-400: #5567b8;
+  --color-rotpar-100: #dde3f5;
+  --color-rotpar-50:  #f0f3fc;
+
+  --color-amber-600: #d97706;
+  --color-amber-500: #f59e0b;
+  --color-amber-400: #fbbf24;
+  --color-amber-100: #fef3c7;
+  --color-amber-50:  #fffbeb;
+
+  --color-ok-700:    #15803d;
+  --color-ok-600:    #16a34a;
+  --color-ok-100:    #dcfce7;
+  --color-ok-50:     #f0fdf4;
+
+  --color-danger-700: #b91c1c;
+  --color-danger-600: #dc2626;
+  --color-danger-100: #fee2e2;
+  --color-danger-50:  #fef2f2;
+
+  --color-steel-100: #f1f5f9;
+  --color-steel-200: #e2e8f0;
+  --color-steel-400: #94a3b8;
+  --color-steel-600: #475569;
+  --color-steel-800: #1e293b;
+
+  --font-display: 'Barlow Condensed', sans-serif;
+  --font-body:    'Barlow', sans-serif;
+}
+
+@layer base {
+  html { font-family: var(--font-body), system-ui, sans-serif; }
+  body { @apply bg-steel-100 text-steel-800; }
+}
