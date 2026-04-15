@@ -23,26 +23,27 @@ export interface SesionTrabajo {
 }
 
 export interface Proceso {
-  id:       string;
-  nombre:   string;
-  estado:   EstadoProceso;
-  sesiones: SesionTrabajo[];
-  orden:    number;
+  id:          string;
+  nombre:      string;
+  estado:      EstadoProceso;
+  sesiones:    SesionTrabajo[];
+  orden:       number;
+  maquinaId?:  string; // máquina asignada a este proceso
 }
 
 export interface OrdenFabricacion {
-  id:        string;
-  referencia: string;
+  id:          string;
+  referencia:  string;
   descripcion: string;
-  estado:    EstadoOF;
-  procesos:  Proceso[];
+  estado:      EstadoOF;
+  procesos:    Proceso[];
 }
 
 export interface Pedido {
-  id:          string;
-  referencia:  string;
-  cliente:     string;
+  id:           string;
+  referencia:   string;
+  cliente:      string;
   fechaEntrega: string;
-  estado:      EstadoPedido;
-  ofs:         OrdenFabricacion[];
+  estado:       EstadoPedido;
+  ofs:          OrdenFabricacion[];
 }

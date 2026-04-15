@@ -1,6 +1,9 @@
 // src/app/core/services/datos.service.ts
 import { Injectable, signal } from '@angular/core';
-import { Pedido, Operario, Maquina, EstadoProceso, EstadoOF, EstadoPedido } from '../models/models';
+import {
+  Pedido, Operario, Maquina,
+  EstadoProceso, EstadoOF, EstadoPedido
+} from '../models/models';
 
 @Injectable({ providedIn: 'root' })
 export class DatosService {
@@ -14,11 +17,11 @@ export class DatosService {
   ];
 
   readonly maquinas: Maquina[] = [
-    { id: 'mq1', nombre: 'Torno CNC-1',     costePorHora: 45 },
-    { id: 'mq2', nombre: 'Fresadora CNC-2',  costePorHora: 55 },
-    { id: 'mq3', nombre: 'Soldadura MIG-1',  costePorHora: 30 },
-    { id: 'mq4', nombre: 'Rectificadora',    costePorHora: 40 },
-    { id: 'mq5', nombre: 'Taladro columna',  costePorHora: 20 },
+    { id: 'mq1', nombre: 'Torno CNC-1',    costePorHora: 45 },
+    { id: 'mq2', nombre: 'Fresadora CNC-2', costePorHora: 55 },
+    { id: 'mq3', nombre: 'Soldadura MIG-1', costePorHora: 30 },
+    { id: 'mq4', nombre: 'Rectificadora',   costePorHora: 40 },
+    { id: 'mq5', nombre: 'Taladro columna', costePorHora: 20 },
   ];
 
   private readonly _pedidos = signal<Pedido[]>([
@@ -35,9 +38,9 @@ export class DatosService {
           descripcion: 'Rótula esférica M24 — 50 uds',
           estado: 'en_curso',
           procesos: [
-            { id: 'pr1', nombre: 'Torneado exterior', estado: 'completado', sesiones: [], orden: 1 },
-            { id: 'pr2', nombre: 'Fresado de ranuras', estado: 'en_curso',  sesiones: [], orden: 2 },
-            { id: 'pr3', nombre: 'Rectificado',        estado: 'pendiente', sesiones: [], orden: 3 },
+            { id: 'pr1', nombre: 'Torneado exterior', estado: 'completado', sesiones: [], orden: 1, maquinaId: 'mq1' },
+            { id: 'pr2', nombre: 'Fresado de ranuras', estado: 'en_curso',  sesiones: [], orden: 2, maquinaId: 'mq2' },
+            { id: 'pr3', nombre: 'Rectificado',        estado: 'pendiente', sesiones: [], orden: 3, maquinaId: 'mq4' },
             { id: 'pr4', nombre: 'Control calidad',    estado: 'pendiente', sesiones: [], orden: 4 },
           ]
         },
@@ -47,9 +50,9 @@ export class DatosService {
           descripcion: 'Articulación doble M16 — 30 uds',
           estado: 'pendiente',
           procesos: [
-            { id: 'pr5', nombre: 'Torneado',           estado: 'pendiente', sesiones: [], orden: 1 },
-            { id: 'pr6', nombre: 'Soldadura',           estado: 'pendiente', sesiones: [], orden: 2 },
-            { id: 'pr7', nombre: 'Acabado superficial', estado: 'pendiente', sesiones: [], orden: 3 },
+            { id: 'pr5', nombre: 'Torneado',           estado: 'pendiente', sesiones: [], orden: 1, maquinaId: 'mq1' },
+            { id: 'pr6', nombre: 'Soldadura',           estado: 'pendiente', sesiones: [], orden: 2, maquinaId: 'mq3' },
+            { id: 'pr7', nombre: 'Acabado superficial', estado: 'pendiente', sesiones: [], orden: 3, maquinaId: 'mq4' },
           ]
         }
       ]
@@ -67,8 +70,8 @@ export class DatosService {
           descripcion: 'Rótula dirección M20 — 100 uds',
           estado: 'en_curso',
           procesos: [
-            { id: 'pr8',  nombre: 'Torneado CNC',   estado: 'en_curso',  sesiones: [], orden: 1 },
-            { id: 'pr9',  nombre: 'Taladrado',       estado: 'pendiente', sesiones: [], orden: 2 },
+            { id: 'pr8',  nombre: 'Torneado CNC',   estado: 'en_curso',  sesiones: [], orden: 1, maquinaId: 'mq1' },
+            { id: 'pr9',  nombre: 'Taladrado',       estado: 'pendiente', sesiones: [], orden: 2, maquinaId: 'mq5' },
             { id: 'pr10', nombre: 'Fosfatado',       estado: 'pendiente', sesiones: [], orden: 3 },
           ]
         }
@@ -84,12 +87,32 @@ export class DatosService {
         {
           id: 'of4',
           referencia: 'OF-0140-A',
-          descripcion: 'Rotula articulada 5/8" — 200 uds',
+          descripcion: 'Rótula articulada 5/8" — 200 uds',
           estado: 'finalizada',
           procesos: [
-            { id: 'pr11', nombre: 'Torneado',      estado: 'completado', sesiones: [], orden: 1 },
-            { id: 'pr12', nombre: 'Rectificado',   estado: 'completado', sesiones: [], orden: 2 },
-            { id: 'pr13', nombre: 'Inspección',    estado: 'completado', sesiones: [], orden: 3 },
+            { id: 'pr11', nombre: 'Torneado',    estado: 'completado', sesiones: [], orden: 1, maquinaId: 'mq1' },
+            { id: 'pr12', nombre: 'Rectificado', estado: 'completado', sesiones: [], orden: 2, maquinaId: 'mq4' },
+            { id: 'pr13', nombre: 'Inspección',  estado: 'completado', sesiones: [], orden: 3 },
+          ]
+        }
+      ]
+    },
+    {
+      id: 'p4',
+      referencia: 'PED-2024-0144',
+      cliente: 'Ferroviaria del Norte SL',
+      fechaEntrega: '2025-04-15',
+      estado: 'pendiente',
+      ofs: [
+        {
+          id: 'of5',
+          referencia: 'OF-0144-A',
+          descripcion: 'Rótula de suspensión M30 — 20 uds',
+          estado: 'pendiente',
+          procesos: [
+            { id: 'pr14', nombre: 'Torneado',  estado: 'pendiente', sesiones: [], orden: 1, maquinaId: 'mq1' },
+            { id: 'pr15', nombre: 'Fresado',   estado: 'pendiente', sesiones: [], orden: 2, maquinaId: 'mq2' },
+            { id: 'pr16', nombre: 'Soldadura', estado: 'pendiente', sesiones: [], orden: 3, maquinaId: 'mq3' },
           ]
         }
       ]
@@ -98,11 +121,15 @@ export class DatosService {
 
   readonly pedidos = this._pedidos.asReadonly();
 
-  getPedidosActivos(): Pedido[] {
+  getPedidosActivos() {
     return this._pedidos().filter(p => p.estado !== 'finalizado');
   }
 
-  getPedido(id: string): Pedido | undefined {
+  getTodosPedidos() {
+    return this._pedidos();
+  }
+
+  getPedido(id: string) {
     return this._pedidos().find(p => p.id === id);
   }
 
@@ -110,15 +137,33 @@ export class DatosService {
     return this.getPedido(pedidoId)?.ofs.find(o => o.id === ofId);
   }
 
-  getMaquina(id: string): Maquina | undefined {
+  getMaquina(id: string) {
     return this.maquinas.find(m => m.id === id);
   }
 
-  getOperario(id: string): Operario | undefined {
+  getOperario(id: string) {
     return this.operarios.find(o => o.id === id);
   }
 
-  iniciarProceso(pedidoId: string, ofId: string, procesoId: string, operarioId: string, maquinaId: string) {
+  /** Sesión activa en una máquina concreta (para saber si está ocupada) */
+  getSesionActivaEnMaquina(maquinaId: string): { operarioId: string } | null {
+    for (const p of this._pedidos()) {
+      for (const o of p.ofs) {
+        for (const pr of o.procesos) {
+          if (pr.estado === 'en_curso') {
+            const sesionAbierta = pr.sesiones.find(s => s.maquinaId === maquinaId && !s.fin);
+            if (sesionAbierta) return { operarioId: sesionAbierta.operarioId };
+          }
+        }
+      }
+    }
+    return null;
+  }
+
+  iniciarProceso(
+    pedidoId: string, ofId: string, procesoId: string,
+    operarioId: string, maquinaId: string
+  ) {
     this._pedidos.update(pedidos =>
       pedidos.map(p => p.id !== pedidoId ? p : {
         ...p,
@@ -130,6 +175,32 @@ export class DatosService {
             ...pr,
             estado: 'en_curso' as EstadoProceso,
             sesiones: [...pr.sesiones, { operarioId, maquinaId, inicio: new Date() }]
+          })
+        })
+      })
+    );
+  }
+
+  cambiarOperarioEnProceso(
+    pedidoId: string, ofId: string, procesoId: string,
+    nuevoOperarioId: string, maquinaId: string
+  ) {
+    this._pedidos.update(pedidos =>
+      pedidos.map(p => p.id !== pedidoId ? p : {
+        ...p,
+        ofs: p.ofs.map(o => o.id !== ofId ? o : {
+          ...o,
+          procesos: o.procesos.map(pr => {
+            if (pr.id !== procesoId) return pr;
+            // Cierra sesión anterior
+            const sesiones = pr.sesiones.map((s, i) =>
+              i === pr.sesiones.length - 1 && !s.fin ? { ...s, fin: new Date() } : s
+            );
+            // Abre nueva sesión
+            return {
+              ...pr,
+              sesiones: [...sesiones, { operarioId: nuevoOperarioId, maquinaId, inicio: new Date() }]
+            };
           })
         })
       })
@@ -157,18 +228,15 @@ export class DatosService {
 
   private _recalcularEstados(pedidoId: string, ofId: string) {
     this._pedidos.update(pedidos =>
-      pedidos.map(p => p.id !== pedidoId ? p : {
-        ...p,
-        ofs: p.ofs.map(o => {
+      pedidos.map(p => {
+        if (p.id !== pedidoId) return p;
+        const ofs = p.ofs.map(o => {
           if (o.id !== ofId) return o;
-          const todosCompletados = o.procesos.every(pr => pr.estado === 'completado');
-          return { ...o, estado: (todosCompletados ? 'finalizada' : o.estado) as EstadoOF };
-        }),
-        estado: (() => {
-          const ped = pedidos.find(x => x.id === pedidoId)!;
-          const todasFinalizadas = ped.ofs.every(o => o.estado === 'finalizada' || (o.id === ofId && true));
-          return (todasFinalizadas ? 'finalizado' : p.estado) as EstadoPedido;
-        })()
+          const todas = o.procesos.every(pr => pr.estado === 'completado');
+          return { ...o, estado: (todas ? 'finalizada' : o.estado) as EstadoOF };
+        });
+        const todasOFs = ofs.every(o => o.estado === 'finalizada');
+        return { ...p, ofs, estado: (todasOFs ? 'finalizado' : p.estado) as EstadoPedido };
       })
     );
   }
